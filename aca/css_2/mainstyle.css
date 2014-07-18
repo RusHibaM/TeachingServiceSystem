@@ -1,0 +1,73 @@
+html{
+	overflow:auto;
+}
+/*页面标题*/
+.col-lg-12{
+	padding-bottom: 20px;
+}
+/*主框*/
+.col-lg-10{
+	position: absolute;
+	top: 150px;
+	left: 200px;
+	right: 0;
+}
+
+.col-lg-2{
+	max-width: 200px;
+}
+
+.col-lg-offset-1{
+  	margin-left: 1%;
+ }
+/*navbar*/
+.btn-primary{
+	position: relative;
+	width: 150px;
+	text-align: center;
+}
+.btn-primary h4{
+	color: #ffffff;
+}
+.btn-success{
+	position: relative;
+	width: 150px;
+	text-align: center;
+}
+.btn-success h4{
+	color: #ffffff;
+}
+.btn-warning{
+	position: relative;
+	width: 150px;
+	text-align: center;
+}
+.btn-warning h4{
+	color: #ffffff;
+}
+.btn-info{
+	position: relative;
+	width: 150px;
+	text-align: center;
+}
+.btn-info h4{
+	color: #ffffff;
+}
+/**/
+
+.row{
+	position: static;
+	margin: 0;
+}
+
+.navbar-toggle1 {
+  position: relative;
+  float: right;
+  margin-right: 15px;
+}
+
+@media (min-width: 768px) {
+  .navbar-toggle1{
+    display: none;
+  }
+}

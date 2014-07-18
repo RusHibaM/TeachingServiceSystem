@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Subsystem for resource sharing">
+    <meta name="author" content="Syntax_Error">
+    <link rel="shortcut icon" href="">
+
+    <title>Course Resource Sharing Subsystem - Teaching Service System</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="./css/mainstyle.css" rel="stylesheet">
+
+    <script src="./js/jquery.min.js"></script>
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+     <script>
+      $(document).ready(function(){
+        $("#login").click(function(){
+          //alert($("#userid").val());
+          var obj={userid:$("#userid").val(),userpassword:$("#userpassword").val()};
+          $.getJSON("./login.php",obj,function(data){
+             if(data.test==123){
+                window.location.href = "./index.html";
+              }
+             else 
+                alert("Wrong username or password!");
+          })
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="./welcome.html">Resource Sharing System</a>
+      </div><!--navbar-header-->
+      
+      <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="./homework.html">Homework</a></li>
+              <li><a href="./resource.html">Resource</a></li>
+              <li><a href="./search.html">Search</a></li>
+              <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">Other Subsystem<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header" style="font-size:18px">The portals:</li>
+                  <li style="height:3px"><br/></li>
+                  <li><a href="">Information Management System</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Automatic Course Arrangement Subsystem</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Course Selection Subsystem</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Discussion Forum Subsystem</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Online Testing Subsystem</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Score Management Subsystem</a></li>
+                </ul>
+              </li>
+            </ul><!--nav navbar-nav-->
+      <button id="logout" type="button" class="btn btn-success navbar-btn navbar-right">Log out</button> 
+          </div><!--/.nav-collapse -->
+        </div><!--container-fluid-->
+        </div><!--navbar navbar-inverse navbar-fixed-top-->
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Welcome!</h1>
+        <p>This is a subsystem of teaching service system for sharing course related resource and homeworks. You could get or upload any resource you want here, even use it as your U disk online. Homeworks could also be assigned or uploaded here.</p>
+        <p>Please use your account of teaching service system to login. You could also sign up by clicking the following button.</p>
+        <p><a class="btn btn-primary btn-lg" role="button" href="">Sign up now »</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-6">
+          <h2><a href="./resource.html">Resource</a></h2>
+          <p>You could search for and download the resource which is upload by other students and teachers. </p>
+        </div>
+        <div class="col-md-6">
+          <h2><a href="./homework.html">Homework</a></h2>
+          <p>We also provide a convenient platform for teachers to assign homeworks and collect the finished works uploaded by students. </p>
+       </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>Syntax_Error 2014</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="./bootstrap/js/jquery.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+</body></html>

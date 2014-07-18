@@ -1,0 +1,151 @@
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Teaching Service System &mdash; Software Engineering</title>
+
+		<link rel="stylesheet" href="unstyle.css">
+		<script src="//code.jquery.com/jquery-latest.min.js"></script>
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+   		<!-- Custom styles for this template -->
+    	<link href="./css/mainstyle.css" rel="stylesheet">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+   	 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta name="description" content="Teaching Service System">
+    	<meta name="author" content="GodLike">
+		<script src="./js/jquery.min.js"></script>
+		
+	</head>
+	<body>
+	 <!-- Fixed navbar -->
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="welcome.html">Teaching Service Subsystem</a>
+      </div><!--navbar-header-->
+      
+      <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+             <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">Subsystems<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header" style="font-size:18px">The portals:</li>
+                  <li style="height:3px"><br/></li>
+                  <li><a href="">Information Management System</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Resource Sharing Management System</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Automatic Course Arrangement Subsystem</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Course Selection Subsystem</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Discussion Forum Subsystem</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Online Testing Subsystem</a></li>
+                  <li class="divider"></li>
+                  <li><a href="">Score Management Subsystem</a></li>
+                </ul>
+              </li>
+            </ul><!--nav navbar-nav-->
+      <button id="logout" type="button" class="btn btn-success navbar-btn navbar-right">Log out</button> 
+      <button  id="logout" style="#8A2BE2" class="btn navbar-btn navbar-right" >RusHibaM</button> 
+          </div><!--/.nav-collapse -->
+        </div><!--container-fluid-->
+        </div><!--navbar navbar-inverse navbar-fixed-top-->
+		
+
+		<div class="banner">
+			<ul>
+				<li style="background-image: url('p1.jpg');">
+					<div class="inner">
+						<h1>The jQuery slider that just slides.</h1>
+						<p>就是这个不到3kb的插件！没有奇特的特效或无用的标签。</p>
+
+						<a class="btn" href="#download">下载</a>
+					</div>
+				</li>
+
+				<li style="background-image: url('img/wood.jpg');">
+					<div class="inner">
+						<h1>Fluid, flexible, fantastically minimal.</h1>
+						<p>Use any HTML in your slides, extend with CSS. You have full control.</p>
+
+						<a class="btn" href="#download">下载</a>
+					</div>
+				</li>
+
+				<li style="background-image: url('img/subway.jpg');">
+					<div class="inner">
+						<h1>开源</h1>
+						<p>Unslider的所有源码都托管在GitHub上。</p>
+
+						<a class="btn" href="//github.com/idiot/unslider">参与</a>
+					</div>
+				</li>
+
+				<li style="background-image: url('img/shop.jpg');">
+					<div class="inner">
+						<h1>Uh, that’s about it.</h1>
+						<p>I just wanted to show you another slide.</p>
+
+						<a class="btn" href="#download">下载</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+
+		
+
+		<script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+
+		
+
+		<script src="./unslider.min.js"></script>
+		<script>
+			if(window.chrome) {
+				$('.banner li').css('background-size', '100% 100%');
+			}
+
+			$('.banner').unslider({
+				arrows: true,
+				fluid: true,
+				dots: true
+			});
+
+			//  Find any element starting with a # in the URL
+			//  And listen to any click events it fires
+			$('a[href^="#"]').click(function() {
+				//  Find the target element
+				var target = $($(this).attr('href'));
+
+				//  And get its position
+				var pos = target.offset(); // fallback to scrolling to top || {left: 0, top: 0};
+
+				//  jQuery will return false if there's no element
+				//  and your code will throw errors if it tries to do .offset().left;
+				if(pos) {
+					//  Scroll the page
+					$('html, body').animate({
+						scrollTop: pos.top,
+						scrollLeft: pos.left
+					}, 1000);
+				}
+
+				//  Don't let them visit the url, we'll scroll you there
+				return false;
+			});
+
+			
+		</script>
+
+	</body>
+</html>

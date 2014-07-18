@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Teaching Service System</title>
+    <link rel="stylesheet" href="css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap-responsive.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
+    <script src="js/jquery.js"></script>
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="position:fixed">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="../">Teaching Service System</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="../ims/">Information Management</a></li>
+              <li class="active"><a href="#">Course Selection</a></li>
+              <li><a href="../crss/">Resource Sharing</a></li>
+              <li><a href="../score_manage/">Score Management</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="secondname">
+        <h1 class="title">Course Selection System</h1>
+        <p class="vicetitle">Knowledge is power.</p>
+        <div class="secondtab">
+          <ul class="nav nav-pills">
+            <li><a href="mcp.html"><i class="fa fa-pencil fa-fw"></i></a></li>
+            <li><a href="rv.html"><i class="fa fa-book fa-fw"></i></a></li>
+            <li><a href="sc.html"><i class="fa fa-search fa-fw"></i></a></li>
+            <li><a href="teacher.html"><i class="fa fa-graduation-cap fa-fw"></i></a></li>
+            <li class="active"><a href="admin.html"><i class="fa fa-coffee fa-fw"></i></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <ul class="breadcrumb">
+        <li><a href="#">Teaching Service System</a> <span class="divider">/</span></li>
+        <li><a href="index.html">Course Selection System</a> <span class="divider">/</span></li>
+        <li class="active">Adminastrator</li>
+      </ul>
+
+      <div class="table">
+        <div id="success" class="alert alert-success" style="display:none">
+          Operation success.
+        </div>
+        <div id="fail" class="alert alert-fail" style="display:none">
+          Something wrong.
+        </div>
+        <div class="ad" id="add">
+          <h2>Add Class</h2>
+          <input class ="span3" type="text" placeholder="studentID" id="ad-sid">
+          <input class ="span3" type="text" placeholder="classID" id="ad-cid">
+          <button id="add">add class</button>
+        </div>
+        <div class="ad" id="delete">
+          <h2>Delete Class</h2>
+          <input class ="span3" type="text" placeholder="studentID" id="de-sid">
+          <input class ="span3" type="text" placeholder="classID" id="de-cid">
+          <button id="delete">delete class</button>
+        </div>
+        <div class="ad" id="view-time">
+          <h2>Course Selection Time</h2>
+          <p id="none">Course selection time hasn't been set.</p>
+        </div>
+        <div class="ad" id="change-time">
+          <h2>Change Course Selection Time</h2>
+          <br>
+          <p>Round One</p>
+          <input class ="span3" type="text" placeholder="start-time" id="st-time1">
+          <input class ="span3" type="text" placeholder="end-time" id="ed-time1">
+          <br>
+          <p>Round Two</p>
+          <input class ="span3" type="text" placeholder="start-time" id="st-time2">
+          <input class ="span3" type="text" placeholder="end-time" id="ed-time2">
+          <br>
+          <button id="change">Save Changes</button>
+        </div>
+      </div>
+      </div>
+
+  </body>
+  <script type="text/javascript">
+    $('#add').on('click','button',function(){
+      var studentID=$("#ad-sid").val();
+      var classID=$("#ad-cid").val();
+      $.ajax({
+        url: "admin/add_result.php",
+        type: "POST",
+        data: {studentID:studentID, classID:classID},
+        error: function(){
+          alert('Error loading XML document');
+        },
+        success: function(data){
+          var i=data;
+          console.log(i);
+          if(i=="1"){
+           $('#success').slideDown();
+           setTimeout("$('#success').slideUp();",2000);
+         }
+         else{
+           $('#fail').slideDown();
+           setTimeout("$('#fail').slideUp();",2000);
+         }
+        }
+      })
+    })
+
+    $('#delete').on('click','button',function(){
+      var studentID=$("#de-sid").val();
+      var classID=$("#de-cid").val();
+      $.ajax({
+        url: "admin/delete_result.php",
+        type: "POST",
+        data: {studentID:studentID, classID:classID},
+        error: function(){
+          alert('Error loading XML document');
+        },
+        success: function(data){
+          var i=data;
+          if(i=="1"){
+            $('#success').slideDown();
+            setTimeout("$('#success').slideUp();",2000);
+         }
+         else{
+           $('#fail').slideDown();
+           setTimeout("$('#fail').slideUp();",2000);
+         }
+        }
+      })
+    })
+
+    $(function(){
+      $.ajax({
+        url: "admin/viewtime.php",
+        type: "GET",
+        dataType: "json",
+        error: function(){
+          alert('Error loading XML document');
+        },
+        success: function(data){
+          var status = data.status;
+          if (status==0){
+            alert("Course selection time hasn't been set.");
+          } else if (status==-1) {
+            $(".table").html("You are not an administrator.");
+          }
+          else{
+              var st1=data.start_time1;
+              var et1=data.end_time1;
+              var st2=data.start_time2;
+              var et2=data.end_time2;
+              var newp="<p>Round One</p><br><p>Start: " + st1 + "  End: "+et1+"</p><br><p>Round Two</p><br><p>Start: "+st2+"  End: "+et2+"</p>";
+              $("#view-time").append(newp);
+              $("#none").hide();
+          }
+         }
+      })
+    })
+
+    $('#change-time').on('click','button',function(){
+      var start1=$("#st-time1").val();
+      var end1=$("#ed-time1").val();
+      var start2=$("#st-time2").val();
+      var end2=$("#ed-time2").val();
+
+      $.ajax({
+        url: "admin/changetime.php",
+        type: "POST",
+        data: {start1:start1, start2:start2, end1:end1, end2:end2},
+        error: function(){
+          alert('Error loading XML document');
+        },
+        success: function(data){
+          var i=data;
+          if(i=="1"){
+           $('#success').slideDown();
+           setTimeout("location.reload();",2000);
+         }
+         else{
+           $('#fail').slideDown();
+           setTimeout("location.reload();",2000);
+         }
+        }
+      })
+    })
+
+    $('#logout').on('click',function(){
+      window.location.href="admin/logout.php";
+    })
+
+  </script>
+</html>

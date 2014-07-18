@@ -1,0 +1,28 @@
+<?php
+	session_start();
+	echo "okay";
+	if($_SESSION['islogin'])
+	{
+		echo "login";
+		echo $_SESSION['user_type'];
+		if($_SESSION['user_type']==3)
+		{
+			$user_type=='student';
+			$stu_id=$_SESSION['user_id'];
+			echo $user_type;
+			echo $stu_id;
+		}
+		if($_SESSION['user_type']==2)
+		{
+			$user_type=='teacher';
+			$teac_id=$_SESSION['user_id'];
+			echo $user_type;
+			echo $teac_id;
+		}
+	}
+	else 
+	{
+		echo "failed";
+		exit(2);
+	}
+?>

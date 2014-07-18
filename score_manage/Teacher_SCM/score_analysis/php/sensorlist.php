@@ -1,0 +1,1 @@
+{"array_device":["1","2","3","9"],"array_ID":["2","3","9"],"array_type":["hum","tem","pressure"],"array_unit":["%","C","N"]}

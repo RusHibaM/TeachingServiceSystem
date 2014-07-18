@@ -1,0 +1,34 @@
+<?php error_reporting(0); require('conn_database.php');
+	require('loginCheck.php');
+
+	date_default_timezone_set("Asia/Shanghai");
+	//$user_type='teacher';
+	if ($_FILES["file"]["error"] <= 0)
+	{
+		$file_size=$_FILES["file"]["size"]/1048576;
+		$strsql="insert into crssFile (file_date,file_name,file_type,file_size,file_uploader,file_level) values('". date("Y-m-d"). "','". $_FILES["file"]["name"]. "','resource',". $file_size. ",". $stu_id. ",". "'private'".  ");";
+		if($result=mysql_db_query($mysql_database, $strsql, $conn))
+		{
+			$file_id=mysql_insert_id();
+			$file_tmpname=$_FILES["file"]["name"]. ".". $file_id;
+			$strsql="update crssFile set file_tmpname='". $file_tmpname. "' where file_id=". $file_id. ";";
+			mysql_db_query($mysql_database, $strsql, $conn);
+			if($user_type=='student'){
+				$strsql="insert into crssResource (reso_uploader,reso_uploadertype,reso_famile,reso_name,reso_update_date,reso_level,reso_illustration) values(". $stu_id. ",'". $user_type. "','','". $_FILES["file"]["name"]. "','". date("Y-m-d"). "','public','no illustration yet');";
+				mysql_db_query($mysql_database, $strsql, $conn);
+			}
+			if($user_type=='teacher'){
+				$strsql="insert into crssResource (reso_uploader,reso_uploadertype,reso_famile,reso_name,reso_update_date,reso_level,reso_illustration) values(". $teac_id. ",'". $user_type. "','','". $_FILES["file"]["name"]. "','". date("Y-m-d"). "','public','no illustration yet');";
+				mysql_db_query($mysql_database, $strsql, $conn);
+			}
+			$reso_id=mysql_insert_id();
+			$strsql="insert into Re_crssFile_crssResource (file_id,reso_id) values(".$file_id.",".$reso_id.");";
+			mysql_db_query($mysql_database, $strsql, $conn);
+			$strsql="insert into Re_crssResource_imsCourse (reso_id,cuz_id) values(".$reso_id.",".$cuz_id.");";
+			mysql_db_query($mysql_database, $strsql, $conn);	
+			move_uploaded_file($_FILES["file"]["tmp_name"],
+					"./upload/" . $file_tmpname);
+			echo json_encode(array('status' => 'ok'));
+		}
+	}
+?>

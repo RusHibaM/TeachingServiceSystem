@@ -1,0 +1,223 @@
+<?php 
+include 'linkdb.php';
+LIDB();
+
+if ($_COOKIE['Onclick_Button_ID'] == "btn-newquestion")
+{
+//$_COOKIE['Add_Question_Step']="Stage1";
+$display_block =<<<END_OF_TEXT
+<form class="form-horizontal" method="post" action="Addquestion.php?Step=Stage1">
+<fieldset>
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">x</button>
+<h3>Create new question</h3>
+</div>
+<div class="modal-body">
+							<legend>Add Question</legend>
+							<div class="control-group">
+							  <label class="control-label" for="textarea2">Question description</label>
+							  <div class="controls">
+								<textarea name="Question_Content"></textarea>
+							  </div>
+							</div>
+               <div class="control-group">
+								<label class="control-label" for="selectError3">Select Question Class</label>
+								<div class="controls">
+								  <select id="selectError3" name="add_question_class_selection">
+									<option value="Math">Math</option>
+									<option value="English">English</option>  
+									<option value="Computer">Computer</option>
+									<option value="Chemistry">Chemistry</option>
+									<option value="Art">Art</option>
+								  </select>
+								</div>
+							</div>
+               <div class="control-group">
+								<label class="control-label" for="selectError3">Select Question Type</label>
+								<div class="controls">
+								  <select id="selectError3" name="add_question_type_selection">
+									<option value="Choice_qes">Choice Question</option>
+									<option value="Judgement-qes">Judgment Question</option>
+								  </select>
+								</div>
+							</div>
+</div>
+<div class="modal-footer">
+<a href="#" class="btn" data-dismiss="modal">Close</a>
+<button type="submit" class="btn btn-primary" id="add-question-next-step">Next Step</button>
+</div>
+</div>
+</fieldset>
+</form>
+END_OF_TEXT;
+echo $display_block;
+}
+elseif ($_COOKIE['Onclick_Button_ID'] == "add-question-step2")
+{      
+$display_block =<<<END_OF_TEXT
+<form class="form-horizontal" method="post" action="Addquestion.php">
+<fieldset>
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">x</button>
+<h3>Create new question</h3>
+</div>
+<div class="modal-body">
+							<legend>Add Question Choice</legend>
+							<div class="control-group">
+							  <label class="control-label" for="textarea2">Edit Option A:</label>
+							  <div class="controls">
+								<textarea name="Add_Choice_Question_OptionA"></textarea>
+							  </div>
+							</div>
+              <div class="control-group">
+							  <label class="control-label" for="textarea2">Edit Option B:</label>
+							  <div class="controls">
+								<textarea name="Add_Choice_Question_OptionA"></textarea>
+							  </div>
+							</div>
+              <div class="control-group">
+							  <label class="control-label" for="textarea2">Edit Option C:</label>
+							  <div class="controls">
+								<textarea name="Add_Choice_Question_OptionC"></textarea>
+							  </div>
+							</div>
+              <div class="control-group">
+							  <label class="control-label" for="textarea2">Edit Option D:</label>
+							  <div class="controls">
+								<textarea name="Add_Choice_Question_OptionD"></textarea>
+							  </div>
+							</div>
+              <div class="control-group">
+								<label class="control-label" for="selectError3">Select Question Answer</label>
+								<div class="controls">
+								  <select id="selectError3" name="Add_Choice_Question_Answer">
+									<option value="A">A</option>
+									<option value="B">B</option>  
+									<option value="C">C</option>    
+									<option value="D">D</option>
+								  </select>
+								</div>
+							</div>
+</div>
+<div class="modal-footer">
+<a href="#" class="btn" data-dismiss="modal">Close</a>
+<button type="submit" class="btn btn-primary">Save changes</button>
+</div>
+</div>
+</fieldset>
+</form> 
+END_OF_TEXT;
+echo $display_block;
+} 
+elseif ($_COOKIE['Onclick_Button_ID'] == "btn-viewquestion")
+{   
+$display_block1=<<<END_OF_TEXT
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">x</button>
+<h3>Create new question</h3>
+</div>
+<div class="modal-body">
+			<div class="row-fluid sortable">	
+				<div class="box span12">
+					<div class="box-header well" data-original-title>
+						<h2><i class="icon-plus"></i> View Existed Questions</h2>
+						<div class="box-icon">
+							<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
+							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">    
+          <table class="table table-striped table-bordered bootstrap-datatable datatable">
+						  <thead>
+							  <tr>
+								  <th>ID</th>
+								  <th>Class</th>
+								  <th>Publisher</th>
+								  <th>Type</th>
+								  <th>Actions</th>
+							  </tr>
+				      </thead> 
+          <tbody>
+END_OF_TEXT;
+$get_question_sql = " SELECT questionID, Type, Class
+            FROM question
+				    ORDER BY questionID DESC";
+
+$get_question_res = mysqli_query($mysqli, $get_question_sql)	
+				  or	die(mysqli_error($mysqli));    
+$display_block1.=<<<END_OF_TEXT
+<table class="table table-striped table-bordered bootstrap-datatable datatable">
+						  <thead>
+							  <tr>
+								  <th>ID</th>
+								  <th>Class</th>
+								  <th>Publisher</th>
+								  <th>Type</th>
+								  <th>Actions</th>
+							  </tr>
+				</thead> 
+        <tbody>
+END_OF_TEXT;
+while ($question_info = mysqli_fetch_array($get_question_res))
+		{
+			$question_id = $question_info['questionID']; 
+			$question_type = $question_info['Type'];
+			$question_class = $question_info['Class'];
+
+$display_block1.=<<<END_OF_TEXT
+	<tr>
+								<td>$question_id</td>
+								<td class="center">$question_class</td>
+								<td class="center">Su</td>
+END_OF_TEXT;
+      if ($question_type="Choice_qes")
+      {
+$display_block1.=<<<END_OF_TEXT
+		  <td class="center">
+			<span class="label label-danger">Choice</span>
+			</td> 
+END_OF_TEXT;
+      }   
+      else if ($question_type="Judgement_qes")
+      {
+$display_block1.=<<<END_OF_TEXT
+		  <td class="center">
+			<span class="label label-success">Judgement</span>
+			</td>
+END_OF_TEXT;
+}         						
+$display_block1.=<<<END_OF_TEXT
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>  
+										View                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>  
+										Edit                                            
+									</a>
+									<a class="btn btn-danger" href="deleteqes.php?questionID=$question_id">
+										<i class="icon-trash icon-white"></i> 
+										Delete
+									</a>
+								</td>
+							</tr>
+END_OF_TEXT;
+		}
+		mysqli_free_result($get_question_res);
+		mysqli_close($mysqli);        
+$display_block1.=<<<eof
+    </tbody> 
+  </table> 
+</div> 
+</div> 
+</div>        
+<div class="modal-footer">
+<a href="#" class="btn" data-dismiss="modal">Close</a>
+<button type="submit" class="btn btn-primary">Save changes</button>
+</div>
+eof;
+echo $display_block1;
+}
+?>                              
